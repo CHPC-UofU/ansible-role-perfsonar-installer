@@ -1,6 +1,10 @@
 ---
 # tasks file for perfsonar-installer
 
+# Variable setup
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
 # Install the perfsonar repos and base OS updates
 - name: Gather facts to load OS information
   tags: [ 'ps::install' ]

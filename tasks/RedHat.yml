@@ -9,11 +9,18 @@
     name: epel-release
     state: present
 
+- name: (RedHat) Define the perfSONAR repository version
+  tags: [ 'ps::install' ]
+  set_fact:
+    perfsonar_repo_version: "{{ __perfsonar_repo_version }}"
+  when:
+    - perfsonar_repo_version is not defined
+
 # yum install http://software.internet2.edu/rpms/el7/x86_64/main/RPMS/perfSONAR-repo-0.10-1.noarch.rpm
 - name: (RedHat) Add perfSONAR repository
   tags: [ 'ps::install' ]
   yum:
-    name: http://software.internet2.edu/rpms/el7/x86_64/main/RPMS/perfSONAR-repo-0.10-1.noarch.rpm
+    name: "http://software.internet2.edu/rpms/el{{ ansible_distribution_major_version }}/x86_64/main/RPMS/perfSONAR-repo-{{ perfsonar_repo_version }}.noarch.rpm"
     state: present
 
 - name: (RedHat) Use perfSONAR staging or nightly repository

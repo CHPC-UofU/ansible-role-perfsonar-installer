@@ -1,0 +1,4 @@
+---
+# vars file for perfsonar-installer
+
+__perfsonar_repo_version: '0.10-1'
