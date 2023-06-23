@@ -4,19 +4,26 @@ galaxy_info:
   company: perfSONAR Project
   license: Apache 2.0
 
-  min_ansible_version: 2.5
+  min_ansible_version: "2.5"
 
   platforms:
-    - name: CentOS
+    - name: EL
       versions:
-        - 7
+        - "7"
+        - "8"
+        - "9"
     - name: Debian
       versions:
-        - 9
+        - stretch
+        - buster
+        - bullseye
+        - bookworm
     - name: Ubuntu
       versions:
-        - 16
-        - 18
+        - xenial
+        - bionic
+        - focal
+        - jammy
 
   galaxy_tags:
     - networking
