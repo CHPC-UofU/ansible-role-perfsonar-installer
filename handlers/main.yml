@@ -1,0 +1,7 @@
+---
+# handlers file for perfsonar-installer
+
+- name: "(RedHat) Cleaning up YUM"
+  command: >-
+    /usr/bin/yum clean all
+  listen: yum-clean-all

@@ -15,42 +15,6 @@ protect = 0
 gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-perfSONAR
 gpgcheck = 1
 
-[perfSONAR-staging]
-name = perfSONAR Staging RPM Repository
-baseurl = https://ps-jenkins.grnoc.iu.edu/staging/el/$releasever/$basearch/perfsonar/latest
-{% if perfsonar_release == 'staging' %}
-enabled = 1
-{% else %}
-enabled = 0
-{% endif %}
-protect = 0
-gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-perfSONAR-staging
-gpgcheck = 1
-
-[perfSONAR-nightly-minor]
-name = perfSONAR Nightly (Minor Version) RPM Repository
-baseurl = https://ps-jenkins.grnoc.iu.edu/nightly/el/$releasever/$basearch/perfsonar/minor
-{% if perfsonar_release == 'nightly-minor' %}
-enabled = 1
-{% else %}
-enabled = 0
-{% endif %}
-protect = 0
-gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-perfSONAR-nightly-minor
-gpgcheck = 1
-
-[perfSONAR-nightly-patch]
-name = perfSONAR Nightly (Patch Version) RPM Repository
-baseurl = https://ps-jenkins.grnoc.iu.edu/nightly/el/9/$basearch/perfsonar/patch
-{% if perfsonar_release == 'nightly-patch' %}
-enabled = 1
-{% else %}
-enabled = 0
-{% endif %}
-protect = 0
-gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-perfSONAR-nightly-patch
-gpgcheck = 1
-
 {% if perfsonar_release is match("^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$") %}
 [perfSONAR-{{ perfsonar_release }}]
 name = perfSONAR RPM Repository - software.internet2.edu - {{ perfsonar_release }}

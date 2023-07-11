@@ -1,28 +1,68 @@
 ---
 # tasks file for RedHat.yml
 
-# Setup the required repositories
+# Set up the required repositories
 # yum install epel-release
 - name: (RedHat) Add EPEL repository
   tags: [ 'ps::install' ]
   yum:
     name: epel-release
     state: present
+  notify: yum-clean-all
 
-# yum install http://software.internet2.edu/rpms/el7/x86_64/main/RPMS/perfSONAR-repo-0.10-1.noarch.rpm
-- name: (RedHat) Add perfSONAR repository
+# Enable the PowerTools repository for EL8
+- name: (RedHat 8) Enable PowerTools repository
   tags: [ 'ps::install' ]
-  yum:
-    name: http://software.internet2.edu/rpms/el{{ ansible_distribution_major_version }}/x86_64/main/RPMS/perfSONAR-repo-0.11-1.noarch.rpm
+  community.general.ini_file:
+    path: "/etc/yum.repos.d/{{ ansible_distribution }}-PowerTools.repo"
+    section: powertools
+    option: enabled
+    value: 1
+    create: no
+  when: ansible_distribution_major_version == 8
+  notify: yum-clean-all
+
+# Enable the Code Ready Builder (CRB) repository for EL9
+- name: (RedHat 9) Enable CBR repository
+  tags: [ 'ps::install' ]
+  community.general.ini_file:
+    path: "/etc/yum.repos.d/{{ ansible_distribution | lower }}.repo"
+    section: crb
+    option: enabled
+    value: 1
+    create: no
+  when: ansible_distribution_major_version == 9
+  notify: yum-clean-all
+
+- name: Import perfSONAR RPM keys
+  rpm_key:
     state: present
+    key: "{{ item }}"
+  loop:
+    - "http://software.internet2.edu/rpms/RPM-GPG-KEY-perfSONAR"
+
+# Set up the perfSONAR repositories
+- name: (RedHat) Add perfSONAR repositories
+  tags: [ 'ps::install' ]
+  template:
+    src: "templates/yum.repos.d/perfSONAR.repo.j2"
+    dest: "/etc/yum.repos.d/perfSONAR.repo"
+    owner: root
+    group: root
+    mode: 0644
+  notify: yum-clean-all
 
 - name: (RedHat) Use perfSONAR staging or nightly repository
   tags: [ 'ps::install' ]
   yum:
     name: perfSONAR-repo-{{ perfsonar_release }}
     state: present
-  when:
-    - perfsonar_release != "release"
+  when: (perfsonar_release is match("^nightly.*$")) or
+        (perfsonar_release == "staging")
+  notify: yum-clean-all
+
+- name: Flush handlers
+  meta: flush_handlers
 
 # Make sure we have the latest upgrades installed
 - name: (RedHat) Install system updates
