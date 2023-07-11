@@ -19,7 +19,7 @@
     option: enabled
     value: 1
     create: no
-  when: ansible_distribution_major_version == 8
+  when: ansible_distribution_major_version == "8"
   notify: yum-clean-all
 
 # Enable the Code Ready Builder (CRB) repository for EL9
@@ -31,7 +31,7 @@
     option: enabled
     value: 1
     create: no
-  when: ansible_distribution_major_version == 9
+  when: ansible_distribution_major_version == "9"
   notify: yum-clean-all
 
 - name: Import perfSONAR RPM keys
