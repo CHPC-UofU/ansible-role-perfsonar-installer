@@ -34,6 +34,7 @@
   when: ansible_distribution_major_version == "9"
   notify: yum-clean-all
 
+# Import package keys
 - name: Import perfSONAR RPM keys
   rpm_key:
     state: present
@@ -52,6 +53,7 @@
     mode: 0644
   notify: yum-clean-all
 
+# Set up alternative perfSONAR repositories
 - name: (RedHat) Use perfSONAR staging or nightly repository
   tags: [ 'ps::install' ]
   yum:
@@ -61,6 +63,7 @@
         (perfsonar_release == "staging")
   notify: yum-clean-all
 
+# Force notified handlers to run now (e.g. yum-clean-all)
 - name: Flush handlers
   meta: flush_handlers
 
