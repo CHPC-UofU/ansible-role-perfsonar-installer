@@ -12,7 +12,7 @@ enabled = 1
 enabled = 0
 {% endif %}
 protect = 0
-gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-perfSONAR
+gpgkey = http://software.internet2.edu/rpms/RPM-GPG-KEY-perfSONAR
 gpgcheck = 1
 
 {% if perfsonar_release is match("^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$") %}
@@ -27,6 +27,6 @@ baseurl = http://software.internet2.edu/rpms/el$releasever/$basearch/{{ perfsona
           http://mirror.in2p3.fr/pub/linux/internet2-software/rpms/el$releasever/$basearch/{{ perfsonar_release }}
 enabled = 1
 protect = 0
-gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-perfSONAR
+gpgkey = http://software.internet2.edu/rpms/RPM-GPG-KEY-perfSONAR
 gpgcheck = 1
 {% endif %}
