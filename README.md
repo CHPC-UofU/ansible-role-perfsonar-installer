@@ -1,14 +1,17 @@
 perfSONAR-installer Ansible role
 ================================
 
-This roles installs a perfSONAR bundle, and additional support packages.
+This role installs a perfSONAR bundle, and additional support packages.
 
 Requirements
 ------------
 
 This role is meant to work with any perfSONAR supported distro:
 
-  - CentOS: http://docs.perfsonar.net/install_centos.html
+  - RedHat Enterprise Linux Variants:
+    - Alma Linux: https://wiki.almalinux.org/documentation/installation-guide.html
+    - CentOS: http://docs.perfsonar.net/install_centos.html
+    - Rocky Linux: https://docs.rockylinux.org/guides/installation/
   - Debian/Ubuntu: http://docs.perfsonar.net/install_debian.html
 
 The hosts must be manageable through Ansible including access to some Ansible modules.  We recommend that you bootstrap Ansible on your hosts prior to running this role.  This can be done manually or through roles provided by [DebOps][debops] or some bootstrap roles available on Ansible Galaxy like [robertdebock.bootstrap][rdbs] as a very first role.
@@ -22,10 +25,10 @@ The following variables can/should be defined for your host setup:
 
   - `perfsonar_os_update` defaults to True.  This causes the base OS to be updated.
   - `perfsonar_bundle` must be set by the inheriting role.
-  - `perfsonar_optional_packages` May be set by the inherting role.  It is a list of additional packages to install.
+  - `perfsonar_optional_packages` May be set by the inheriting role.  It is a list of additional packages to install.
   - `perfsonar_release` defaults to release but may be set to "(major).(minor).(patch)".  "staging" and "nightly" are optional.
 
-- Some other variables are defined at the end of `default/main.yml` and in `vars/Debian.yml` and `vars/RedHat.yml` (those contains distro specific settings), but shouldn't need to be altered for a regular install.
+- Some other variables are defined at the end of `default/main.yml` and in `vars/Debian.yml` and `vars/RedHat.yml` (those contain distro specific settings), but shouldn't need to be altered for a regular installation.
 
 Role Tags
 ---------
