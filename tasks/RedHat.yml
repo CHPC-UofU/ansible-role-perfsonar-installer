@@ -34,6 +34,13 @@
   when: ansible_distribution_major_version == "9"
   notify: yum-clean-all
 
+- name: Import perfSONAR RPM keys
+  rpm_key:
+    state: present
+    key: "{{ item }}"
+  loop:
+    - "http://software.internet2.edu/rpms/RPM-GPG-KEY-perfSONAR"
+
 # Set up the perfSONAR repositories
 - name: (RedHat) Add perfSONAR repositories
   tags: [ 'ps::install' ]
